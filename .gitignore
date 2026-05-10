@@ -1,0 +1,6 @@
+chem-service
+*.exe
+go.sum
+vendor/
+*.log
+.DS_Store
