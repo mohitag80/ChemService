@@ -1,5 +1,5 @@
 # Stage 1: Build using older Go version with known CVEs
-FROM golang:1.17-buster AS builder
+FROM golang:1.19-bullseye AS builder
 
 WORKDIR /app
 
@@ -10,7 +10,7 @@ RUN go mod tidy && \
     CGO_ENABLED=0 GOOS=linux go build -o chem-service .
 
 # Stage 2: Runtime using older Debian Buster base
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 LABEL maintainer="exam-platform@example.com"
 LABEL service="chem-service"
