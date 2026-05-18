@@ -4,10 +4,10 @@ import (
 	"strings"
 
 	"github.com/exam-platform/chem-service/models"
-	"github.com/sirupsen/logrus"
+	// "github.com/sirupsen/logrus"
 )
 
-var log = logrus.New()
+// var log = logrus.New()
 
 var QuestionBank = []models.Question{
 	// Grade 9 - Matter and Its Properties
@@ -61,7 +61,7 @@ var QuestionBank = []models.Question{
 
 // GetQuestionsByGrade filters questions by grade
 func GetQuestionsByGrade(grade, n int) []models.Question {
-	log.Debugf("Querying question bank for grade=%d, limit=%d", grade, n)
+	// log.Debugf("Querying question bank for grade=%d, limit=%d", grade, n)
 	var result []models.Question
 	for _, q := range QuestionBank {
 		if q.Grade == grade {
@@ -71,13 +71,13 @@ func GetQuestionsByGrade(grade, n int) []models.Question {
 			}
 		}
 	}
-	log.Infof("Retrieved %d questions for grade %d", len(result), grade)
+	// log.Infof("Retrieved %d questions for grade %d", len(result), grade)
 	return result
 }
 
 // GetQuestionsByTopic filters questions by topic
 func GetQuestionsByTopic(topic string, n int) []models.Question {
-	log.Debugf("Querying question bank for topic='%s', limit=%d", topic, n)
+	// log.Debugf("Querying question bank for topic='%s', limit=%d", topic, n)
 	var result []models.Question
 	for _, q := range QuestionBank {
 		if strings.EqualFold(q.Topic, topic) {
@@ -87,13 +87,13 @@ func GetQuestionsByTopic(topic string, n int) []models.Question {
 			}
 		}
 	}
-	log.Infof("Retrieved %d questions for topic '%s'", len(result), topic)
+	// log.Infof("Retrieved %d questions for topic '%s'", len(result), topic)
 	return result
 }
 
 // GetQuestionsByComplexity filters questions by complexity
 func GetQuestionsByComplexity(complexity string, n int) []models.Question {
-	log.Debugf("Querying question bank for complexity='%s', limit=%d", complexity, n)
+	// log.Debugf("Querying question bank for complexity='%s', limit=%d", complexity, n)
 	var result []models.Question
 	for _, q := range QuestionBank {
 		if strings.EqualFold(q.Complexity, complexity) {
@@ -103,13 +103,13 @@ func GetQuestionsByComplexity(complexity string, n int) []models.Question {
 			}
 		}
 	}
-	log.Infof("Retrieved %d questions with complexity '%s'", len(result), complexity)
+	// log.Infof("Retrieved %d questions with complexity '%s'", len(result), complexity)
 	return result
 }
 
 // GetAllTopics returns unique topics from the question bank
 func GetAllTopics() []string {
-	log.Debug("Fetching all available topics from question bank")
+	// log.Debug("Fetching all available topics from question bank")
 	seen := make(map[string]bool)
 	var topics []string
 	for _, q := range QuestionBank {
@@ -118,6 +118,6 @@ func GetAllTopics() []string {
 			topics = append(topics, q.Topic)
 		}
 	}
-	log.Infof("Found %d unique topics", len(topics))
+	// log.Infof("Found %d unique topics", len(topics))
 	return topics
 }
