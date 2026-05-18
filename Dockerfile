@@ -1,5 +1,5 @@
-# Stage 1: Build using older Go version with known CVEs
-FROM golang:1.19-bullseye AS builder
+# Stage 1: Build
+FROM golang:1.23-alpine AS builder
 
 WORKDIR /app
 
@@ -9,8 +9,8 @@ COPY . .
 RUN go mod tidy && \
     CGO_ENABLED=0 GOOS=linux go build -o chem-service .
 
-# Stage 2: Runtime using older Debian Buster base
-FROM debian:bullseye-slim
+# Stage 2: Runtime
+FROM alpine:3.20
 
 LABEL maintainer="exam-platform@example.com"
 LABEL service="chem-service"
@@ -18,9 +18,7 @@ LABEL version="1.0.0"
 
 WORKDIR /app
 
-RUN apt-get update && \
-    apt-get install -y ca-certificates curl openssl && \
-    rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache ca-certificates curl openssl
 
 COPY --from=builder /app/chem-service .
 
